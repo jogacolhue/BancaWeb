@@ -1,4 +1,5 @@
 <?php 
+    // Variables para la muestra del mensaje de validación rechazada en el inicio de sesión
     $errorLogin = $_GET['errorLogin'] ?? 0; 
     $mensajeError = "Tarjeta y/o contraseña no válida. Tarjeta: 4772000012345678, Clave: 1234";
 ?>
@@ -39,6 +40,7 @@
                         <input type="submit" class="w3-button w3-section w3-red w3-ripple" name="submit" value="Ingresar"> </p>
 
 <?php
+// Se muestra el mensaje de error si se cumplen los requisitos
 if ($errorLogin){
 echo <<<EOT
 <p style="color: red"> $mensajeError </p>

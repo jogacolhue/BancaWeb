@@ -1,18 +1,17 @@
 <?php include './bases/header.html'; ?>
 
 <?php
+// Creación de variables inciales
 $monedas = ['S/', '$'];
-$tipocuentas = ['Ahorro Simple', 'Ahorro Sueldo'];
-$tipocreditos = ['Credito por Consumo', 'Credito Hipotecario'];
+$tipoCuentas = ['Ahorro Simple', 'Ahorro Sueldo'];
+$tipoCreditos = ['Credito por Consumo', 'Credito Hipotecario'];
 $cuentas = array();
 $creditos = array();
 
-$cuentaorigen = '';
-$cuentadestino = '';
-
+// Carga de las cuentas del cliente
 for ($i = 0; $i < 3; $i++) {
     $cuenta = [
-        'Tipo' => strtoupper($tipocuentas[rand(0, 1)]),
+        'Tipo' => strtoupper($tipoCuentas[rand(0, 1)]),
         'Saldo' => mt_rand(0.00 * 100, 1000.00 * 100) / 100,
         'Codigo' => rand(100000000, 999999999),
         'Moneda' => $monedas[rand(0, 1)]
@@ -20,9 +19,10 @@ for ($i = 0; $i < 3; $i++) {
     array_push($cuentas, $cuenta);
 };
 
+// Carga de los créditos del cliente
 for ($i = 0; $i < 3; $i++) {
     $credito = [
-        'Tipo' => strtoupper($tipocreditos[rand(0, 1)]),
+        'Tipo' => strtoupper($tipoCreditos[rand(0, 1)]),
         'DeudaPendiente' => mt_rand(0.00 * 100, 1000.00 * 100) / 100,
         'Codigo' => rand(100000000, 999999999),
         'Moneda' => 'S/'
@@ -44,6 +44,7 @@ for ($i = 0; $i < 3; $i++) {
                 <div class="w3-container">
                     <ul class="w3-ul w3-hoverable">
                         <?php
+// Se muestran las cuentas del cliente en la pantalla
 foreach ($cuentas as $cuenta) {
 echo <<<EOT
 <li id="$cuenta[Codigo]1"><div class="w3-bar-item" onclick="agregarOrigen($cuenta[Codigo], '$cuenta[Moneda]')">
@@ -66,6 +67,7 @@ EOT;
                 <div class="w3-container">
                     <ul class="w3-ul w3-hoverable">
 <?php
+// Se muestran los créditos del cliente en la pantalla
 foreach ($cuentas as $cuenta) {
 echo <<<EOT
 <li id="$cuenta[Codigo]2"><div class="w3-bar-item" onclick="agregarDestino($cuenta[Codigo])">

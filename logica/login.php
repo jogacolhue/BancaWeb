@@ -1,5 +1,5 @@
 <?php 
-
+// Se obtiene los datos del envió del formulario
 if ( isset( $_POST['submit'] ) ){  
     $tarjeta = $_REQUEST['tarjeta'];
     $clave = $_REQUEST['clave'];
@@ -14,6 +14,9 @@ if ( isset( $_POST['submit'] ) ){
 
 }
 
+// Función para la validación de credencias de la tarjeta y clave del cliente
+// $tarjeta : Número de tarjeta del cliente
+// $clave : Clave de la tarjeta
 function ValidarCredenciales ($tarjeta, $clave)
 {
     if($tarjeta == "4772000012345678" && $clave == 1234){

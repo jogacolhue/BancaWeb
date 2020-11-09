@@ -3,33 +3,42 @@ var cuentaDestino = '';
 var monto = 0.00;
 var moneda = '';
 
-async function agregarOrigen(e, f) {
+// Función para establecer la cuenta origen de la operación
+// origen : Cuenta origen de la operación
+// monedaOrigen : Moneda de la cuenta origen
+async function agregarOrigen(origen, monedaOrigen) {
     var elementoAnterior = document.getElementById(cuentaOrigen + '1');
     if (elementoAnterior != null) {
         elementoAnterior.classList.remove('w3-gray');
     }
-    cuentaOrigen = e;
-    moneda = f;
+    cuentaOrigen = origen;
+    moneda = monedaOrigen;
     document.getElementById(cuentaOrigen + '1').classList.add('w3-gray');
-    mostratMensaje();
+    mostrarMensaje();
 }
 
-async function agregarDestino(e) {
+// Función para establecer el destino de la operación
+// destino : Cuenta destino de la operación
+async function agregarDestino(destino) {
     var elementoAnterior = document.getElementById(cuentaDestino + '2');
     if (elementoAnterior != null) {
         elementoAnterior.classList.remove('w3-gray');
     }
-    cuentaDestino = e;
+    cuentaDestino = destino;
     document.getElementById(cuentaDestino + '2').classList.add('w3-gray');
-    mostratMensaje();
+    mostrarMensaje();
 }
 
-async function agregarMonto(e) {
-    monto = e;
-    mostratMensaje();
+// Función para establecer el monto de la operación
+// montoOperacion : Monto de la operación en base a la cuenta origen
+async function agregarMonto(montoOperacion) {
+    debugger;
+    monto = montoOperacion;
+    mostrarMensaje();
 }
 
-function mostratMensaje() {
+// Función para mostrar u ocultar el botón y el mensaje previo de la operación
+function mostrarMensaje() {
     var botonProcesar = document.getElementById("procesar"); 
 
     if (cuentaOrigen != '' && cuentaDestino != '' && monto > 0) {
@@ -40,6 +49,7 @@ function mostratMensaje() {
     }
 }
 
+// Función para el envío de la operación a logica/transferenciapropia.php
 function transferir() {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
