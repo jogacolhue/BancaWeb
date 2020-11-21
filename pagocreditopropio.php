@@ -17,12 +17,23 @@ for ($i = 0; $i < 3; $i++) {
         'Moneda' => $monedas[rand(0, 1)]
     ];
     array_push($cuentas, $cuenta);
-}; 
+};
+
+ // Carga de los créditos del cliente
+ for ($i = 0; $i < 3; $i++) {
+    $credito = [
+        'Tipo' => strtoupper($tipoCreditos[rand(0, 1)]),
+        'DeudaPendiente' => mt_rand(0.00 * 100, 1000.00 * 100) / 100,
+        'Codigo' => rand(100000000, 999999999),
+        'Moneda' => 'S/'
+    ];
+    array_push($creditos, $credito);
+};
 
 ?>
 
 <div class="w3-container" style="margin-top:60px" id="showcase">
-    <h1 class="w3-text-dark-grey"><b>Transferencias entre cuentas propias</b></h1>
+    <h1 class="w3-text-dark-grey"><b>Pago de créditos propios</b></h1>
 
     <div class="w3-row-padding">
         <div class="w3-half w3-margin-bottom">
@@ -36,7 +47,7 @@ for ($i = 0; $i < 3; $i++) {
 // Se muestran las cuentas del cliente en la pantalla
 foreach ($cuentas as $cuenta) {
 echo <<<EOT
-<li id="$cuenta[Codigo]1"><div class="w3-bar-item" onclick="agregarOrigen($cuenta[Codigo], '$cuenta[Moneda]')">
+<li id="$cuenta[Codigo]"><div class="w3-bar-item" onclick="agregarOrigen($cuenta[Codigo])">
 <span class="w3-large">$cuenta[Tipo]</span><br>
 <span>Código $cuenta[Codigo]</span><br>
 <span>Saldo $cuenta[Moneda] $cuenta[Saldo]</span>
@@ -56,17 +67,17 @@ EOT;
                 <div class="w3-container">
                     <ul class="w3-ul w3-hoverable">
 <?php
-// Se muestran los créditos del cliente en la pantalla
-foreach ($cuentas as $cuenta) {
+// Se muestran los créditos del cliente en la pantalla                     
+foreach ($creditos as $credito) {
 echo <<<EOT
-<li id="$cuenta[Codigo]2"><div class="w3-bar-item" onclick="agregarDestino($cuenta[Codigo])">
-<span class="w3-large">$cuenta[Tipo]</span><br>
-<span>Código $cuenta[Codigo]</span><br>
-<span>Saldo $cuenta[Moneda] $cuenta[Saldo]</span>
+<li id="$credito[Codigo]"><div class="w3-bar-item" onclick="agregarDestino($credito[Codigo], '$credito[Moneda]')">
+<span class="w3-large">$credito[Tipo]</span><br>
+<span>Código $credito[Codigo]</span><br>
+<span>Deuda pendiente $credito[Moneda] $credito[DeudaPendiente]</span>
 </div></li>
 EOT;
 }
-?>
+                        ?>
                     </ul>
                 </div>
             </div>
@@ -92,7 +103,7 @@ EOT;
         </div>
     </div> 
 
-    <script src="./js/transferenciapropia.js"></script>
+    <script src="./js/pagocreditopropio.js"></script>
 </div>
 
 <?php include './bases/footer.html'; ?>

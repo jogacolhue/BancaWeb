@@ -1,31 +1,31 @@
-var cuentaOrigen = "";
-var cuentaDestino = "";
+var cuenta = "";
+var credito = "";
 var monto = 0.00;
 var moneda = "";
 
 // Función para establecer la cuenta origen de la operación
 // origen : Cuenta origen de la operación
-// monedaOrigen : Moneda de la cuenta origen
-function agregarOrigen(origen, monedaOrigen) {
-    var elementoAnterior = $("#" + cuentaOrigen + "1");
+function agregarOrigen(origen) {
+    var elementoAnterior = $("#" + cuenta + "1");
     if (elementoAnterior != null) {
         elementoAnterior.removeClass("w3-gray");
     }
-    cuentaOrigen = origen;
-    moneda = monedaOrigen;
-    $("#" + cuentaOrigen + "1").addClass("w3-gray")
+    cuenta = origen;    
+    $("#" + cuenta).addClass("w3-gray")
     mostrarMensaje();
 }
 
 // Función para establecer el destino de la operación
-// destino : Cuenta destino de la operación
-function agregarDestino(destino) {
-    var elementoAnterior = $("#" + cuentaDestino + "2");
+// destino : Crédito de la operación
+// monedaDestino : Moneda del crédito
+function agregarDestino(destino, monedaDestino) {
+    var elementoAnterior = $("#" + credito + "2");
     if (elementoAnterior != null) {
         elementoAnterior.removeClass("w3-gray");
     }
-    cuentaDestino = destino;
-    $("#" + cuentaDestino + "2").addClass("w3-gray")
+    credito = destino;
+    moneda = monedaDestino;
+    $("#" + credito).addClass("w3-gray")
     mostrarMensaje();
 }
 
@@ -40,21 +40,21 @@ function agregarMonto(montoOperacion) {
 function mostrarMensaje() {
     var botonProcesar = $("#procesar");
 
-    if (cuentaOrigen != "" && cuentaDestino != "" && monto > 0) {
-        $("#previa").html("<h5>Transferencia desde la cuenta " + cuentaOrigen + " hacia la cuenta " + cuentaDestino + " por el monto de " + moneda + " " + monto + "</h5>");
+    if (cuenta != "" && credito != "" && monto > 0) {
+        $("#previa").html("<h5>Pago desde la cuenta " + cuenta + " hacia el crédito " + credito + " por el monto de " + moneda + " " + monto + "</h5>");
         botonProcesar.css("display", "block");
     } else {
         botonProcesar.css("display", "none");
     }
 }
 
-// Función para el envío de la operación a logica/transferenciapropia.php
+// Función para el envío de la operación a logica/pagocreditopropio.php
 function transferir() {
     if (confirm("¿Está seguro de realizar esta operación?")) { 
         $.ajax({
             type: "POST",
-            url: "./logica/transferenciapropia.php",
-            data: { "cuentaOrigen" : cuentaOrigen, "cuentaDestino" : cuentaDestino, "monto" : monto, "moneda" : moneda},
+            url: "./logica/pagocreditopropio.php",
+            data: { "cuenta" : cuenta, "credito" : credito, "monto" : monto, "moneda" : moneda},
             success: function(resultado){
                 // https://developer.mozilla.org/en-US/docs/Web/JavaScript
                 var obj = JSON.parse( resultado ); 
@@ -63,8 +63,8 @@ function transferir() {
                 }else{
                     // https://api.jquery.com/category/forms/
                     var form = $('<form action="./operacionresultado.php" method="post">' +
-                    '<input type="text" name="productoOrigen" value="' + cuentaOrigen + '" />' +
-                    '<input type="text" name="productoDestino" value="' + cuentaDestino + '" />' +
+                    '<input type="text" name="productoOrigen" value="' + cuenta + '" />' +
+                    '<input type="text" name="productoDestino" value="' + credito + '" />' +
                     '<input type="text" name="monto" value="' + monto + '" />' +
                     '<input type="text" name="moneda" value="' + moneda + '" />' +
                     '</form>');

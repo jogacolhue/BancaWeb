@@ -10,10 +10,10 @@
 
 <body>
     <!-- Menu lateral -->
-    <nav class="w3-sidebar w3-red w3-collapse w3-top w3-large w3-padding"
+    <nav class="w3-sidebar w3-dark-grey w3-collapse w3-top w3-large w3-padding"
         style="z-index:3;width:300px;font-weight:bold;" id="mySidebar"><br>
         <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft"
-            style="width:100%;font-size:22px">Close Menu</a>
+            style="width:100%;font-size:22px">Cerrar Menu</a>
         <div class="w3-container">
             <h3 class="w3-padding-64"><b>Banca Web</b></h3>
         </div>
@@ -24,7 +24,12 @@
                 <div class="w3-dropdown-content w3-bar-block w3-card-4">
                     <a href="./transferenciapropia.php" class="w3-bar-item w3-button">Entre cuentas propias</a>
                     <a href="./transferenciaterceros.php" class="w3-bar-item w3-button">A cuentas de terceros</a>
-                    <a href="./transferenciainterbancaria.php" class="w3-bar-item w3-button">A otros bancos</a>
+                </div>
+            </div>
+            <div class="w3-dropdown-hover">
+                <button class="w3-button">Créditos</button>
+                <div class="w3-dropdown-content w3-bar-block w3-card-4">
+                    <a href="./pagocreditopropio.php" class="w3-bar-item w3-button">Pago de créditos propios</a>
                 </div>
             </div>
             <a href="./logica/logout.php" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Salir</a>
@@ -32,8 +37,8 @@
     </nav>
 
     <!-- Menu responisvo -->
-    <header class="w3-container w3-top w3-hide-large w3-red w3-xlarge w3-padding">
-        <a href="javascript:void(0)" class="w3-button w3-red w3-margin-right" onclick="w3_open()">☰</a>
+    <header class="w3-container w3-top w3-hide-large w3-dark-grey w3-xlarge w3-padding">
+        <a href="javascript:void(0)" class="w3-button w3-dark-grey w3-margin-right" onclick="w3_open()">☰</a>
         <span>Banca Web</span>
     </header>
 

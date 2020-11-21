@@ -4,7 +4,7 @@
     $moneda=$_POST['moneda'];
     $monto=$_POST['monto'];
     
-    $validacion = validarTransferencia($cuentaOrigen, $cuentaDestino);
+    $validacion = validarTransferencia($cuentaDestino);
     
     $resultado = array(
         'cuentaOrigen' => $cuentaOrigen,
@@ -19,12 +19,11 @@
         echo json_encode($resultado);
     } 
 
-    // Función para validar las transferencias realizadas
-    // $cuentaOrigen : Cuenta origen de la operación
+    // Función para validar las transferencias realizadas 
     // $cuentaDestino : Cuenta destino de la operación
-    function validarTransferencia($cuentaOrigen, $cuentaDestino){
-        if($cuentaOrigen ==  $cuentaDestino){
-            $resultado['error'] = "No se pueden realizar transferencias entre la misma cuenta.";
+    function validarTransferencia($cuentaDestino){
+        if(strlen($cuentaDestino) != 9 ){
+            $resultado['error'] = "La longitud de la cuenta destino debe ser de 9 caracteres.";
             // https://www.php.net/manual/en/function.json-encode.php
             echo json_encode($resultado);
             return false;

@@ -37,7 +37,7 @@
                         <input class="w3-input" type="password" style="width:90%" name="clave" maxlength="4" required>
                         <label>Clave</label></p>
                     <p>
-                        <input type="submit" class="w3-button w3-section w3-red w3-ripple" name="submit" value="Ingresar"> </p>
+                        <input type="submit" class="w3-button w3-section w3-dark-grey w3-ripple" name="submit" value="Ingresar"> </p>
 
 <?php
 // Se muestra el mensaje de error si se cumplen los requisitos

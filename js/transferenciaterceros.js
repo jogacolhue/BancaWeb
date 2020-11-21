@@ -17,15 +17,10 @@ function agregarOrigen(origen, monedaOrigen) {
     mostrarMensaje();
 }
 
-// Función para establecer el destino de la operación
-// destino : Cuenta destino de la operación
-function agregarDestino(destino) {
-    var elementoAnterior = $("#" + cuentaDestino + "2");
-    if (elementoAnterior != null) {
-        elementoAnterior.removeClass("w3-gray");
-    }
-    cuentaDestino = destino;
-    $("#" + cuentaDestino + "2").addClass("w3-gray")
+// Función para establecer la cuenta destino
+// valorDestino : Cuenta destino
+function agregarDestino(valorDestino) {
+    cuentaDestino = valorDestino;
     mostrarMensaje();
 }
 
@@ -48,12 +43,12 @@ function mostrarMensaje() {
     }
 }
 
-// Función para el envío de la operación a logica/transferenciapropia.php
+// Función para el envío de la operación a logica/transferenciaterceros.php
 function transferir() {
     if (confirm("¿Está seguro de realizar esta operación?")) { 
         $.ajax({
             type: "POST",
-            url: "./logica/transferenciapropia.php",
+            url: "./logica/transferenciaterceros.php",
             data: { "cuentaOrigen" : cuentaOrigen, "cuentaDestino" : cuentaDestino, "monto" : monto, "moneda" : moneda},
             success: function(resultado){
                 // https://developer.mozilla.org/en-US/docs/Web/JavaScript
