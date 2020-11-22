@@ -14,7 +14,7 @@ for ($i = 0; $i < 20; $i++) {
     $movimiento = [
         'FechaHora' => $fecha["mday"] . "/" . $fecha["mon"] . "/" . $fecha["year"] . " " . $fecha["hours"] . ":" . $fecha["minutes"] . ":" . $fecha["seconds"],
         'Tipo' => "Pago de crédito",
-        'Monto' => mt_rand(0.00 * 100, 1000.00 * 100) / 100,
+        'Monto' => rand(0.00 * 100, 1000.00 * 100) / 100,
         'Moneda' => "S/",
     ];
     array_push($movimientos, $movimiento);

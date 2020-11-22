@@ -12,7 +12,7 @@ $creditos = array();
 for ($i = 0; $i < 3; $i++) {
     $cuenta = [
         'Tipo' => strtoupper($tipoCuentas[rand(0, 1)]),
-        'Saldo' => mt_rand(0.00 * 100, 1000.00 * 100) / 100,
+        'Saldo' => rand(0.00 * 100, 1000.00 * 100) / 100,
         'Codigo' => rand(100000000, 999999999),
         'Moneda' => $monedas[rand(0, 1)]
     ];
@@ -23,7 +23,7 @@ for ($i = 0; $i < 3; $i++) {
  for ($i = 0; $i < 3; $i++) {
     $credito = [
         'Tipo' => strtoupper($tipoCreditos[rand(0, 1)]),
-        'DeudaPendiente' => mt_rand(0.00 * 100, 1000.00 * 100) / 100,
+        'DeudaPendiente' => rand(0.00 * 100, 1000.00 * 100) / 100,
         'Codigo' => rand(100000000, 999999999),
         'Moneda' => 'S/'
     ];
