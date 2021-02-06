@@ -1,11 +1,15 @@
+<?php include '../datos/conexion.php';?>
+<?php include '../datos/cuenta.php';?>
 <?php
     $cuentaOrigen= $_POST['cuentaOrigen'];
     $cuentaDestino=$_POST['cuentaDestino'];
     $moneda=$_POST['moneda'];
     $monto=$_POST['monto'];
     
-    $validacion = validarTransferencia($cuentaOrigen, $cuentaDestino);
+    $validacion = validarTransferencia($cuentaOrigen, $cuentaDestino, $monto);
     
+    realizarTransferencia($cuentaOrigen, $cuentaDestino, $monto);
+
     $resultado = array(
         'cuentaOrigen' => $cuentaOrigen,
         'cuentaDestino' => $cuentaDestino,
@@ -22,15 +26,42 @@
     // Función para validar las transferencias realizadas
     // $cuentaOrigen : Cuenta origen de la operación
     // $cuentaDestino : Cuenta destino de la operación
-    function validarTransferencia($cuentaOrigen, $cuentaDestino){
+    function validarTransferencia($cuentaOrigen, $cuentaDestino, $monto){
         if($cuentaOrigen ==  $cuentaDestino){
             $resultado['error'] = "No se pueden realizar transferencias entre la misma cuenta.";
             // https://www.php.net/manual/en/function.json-encode.php
             echo json_encode($resultado);
             return false;
         } else{
+            $cuenta = getCuenta($cuentaOrigen)[0];            
+            if($monto > $cuenta["SALDO"]){
+                $resultado['error'] = "El monto a transferir supera el de la cuenta origen.";
+                echo json_encode($resultado);
+                return false;
+            }
             return true;
         }
+    }
+
+    function realizarTransferencia($cuentaOrigen, $cuentaDestino, $monto){
+        $cuentaOrigenDB = getCuenta($cuentaOrigen)[0];
+        $cuentaDestinoDB = getCuenta($cuentaDestino)[0];
+        
+        $montoDestino = $monto;
+
+        if($cuentaOrigenDB["COD_MONEDA"] != $cuentaDestinoDB["COD_MONEDA"]){
+            if($cuentaDestinoDB["COD_MONEDA"] == 2){
+                $montoDestino = $monto / 3;
+            }else{
+                $montoDestino = $monto * 3;
+            }
+        }
+
+        updateSaldo($cuentaOrigenDB["NUM_CUENTA"], $cuentaOrigenDB["SALDO"] - $monto);
+        updateSaldo($cuentaDestinoDB["NUM_CUENTA"], $cuentaDestinoDB["SALDO"] + $montoDestino);
+
+        setMovimiento($cuentaOrigenDB["NUM_CUENTA"], $monto, 2);
+        setMovimiento($cuentaDestinoDB["NUM_CUENTA"], $montoDestino, 1);
     }
 
 ?>

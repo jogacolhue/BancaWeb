@@ -9,9 +9,11 @@ function agregarOrigen(origen) {
     var elementoAnterior = $("#" + cuenta + "1");
     if (elementoAnterior != null) {
         elementoAnterior.removeClass("w3-gray");
+        elementoAnterior.removeClass("negrita");
     }
     cuenta = origen;    
-    $("#" + cuenta).addClass("w3-gray")
+    $("#" + cuenta + "1").addClass("w3-gray")
+    $("#" + cuenta + "1").addClass("negrita")
     mostrarMensaje();
 }
 
@@ -22,10 +24,12 @@ function agregarDestino(destino, monedaDestino) {
     var elementoAnterior = $("#" + credito + "2");
     if (elementoAnterior != null) {
         elementoAnterior.removeClass("w3-gray");
+        elementoAnterior.removeClass("negrita");
     }
     credito = destino;
     moneda = monedaDestino;
-    $("#" + credito).addClass("w3-gray")
+    $("#" + credito + "2").addClass("w3-gray");
+    $("#" + credito + "2").addClass("negrita");
     mostrarMensaje();
 }
 

@@ -1,3 +1,6 @@
+<?php include './logica/seguridad.php';?>
+<?php include './datos/conexion.php';?>
+<?php include './datos/credito.php';?>
 <?php include './bases/header.html'; ?>
 
 <?php
@@ -6,19 +9,16 @@ $credito = $_GET['credito'] ?? 0;
 
 $movimientos = array();
 
-// https://www.php.net/manual/en/function.getdate.php
-$fecha = getdate();
-
-// Carga de los movimientos
-for ($i = 0; $i < 20; $i++) {
+// Carga de los movimientos ;
+foreach (getPagos($credito) as $pagoDB){
     $movimiento = [
-        'FechaHora' => $fecha["mday"] . "/" . $fecha["mon"] . "/" . $fecha["year"] . " " . $fecha["hours"] . ":" . $fecha["minutes"] . ":" . $fecha["seconds"],
-        'Tipo' => "Pago de crédito",
-        'Monto' => rand(0.00 * 100, 1000.00 * 100) / 100,
-        'Moneda' => "S/",
+        'FechaHora' => $pagoDB["FEC_SISTEMA"],
+        'Tipo' => $pagoDB["DESCRIPCION"], 
+        'Monto' => $pagoDB["MONTO"],
+        'Moneda' => $pagoDB["SIMBOLO"]
     ];
     array_push($movimientos, $movimiento);
-};
+}
 
 ?>
 
@@ -38,6 +38,13 @@ for ($i = 0; $i < 20; $i++) {
                 <tbody>
                 <?php
 // Se muestran las creditos origen en la pantalla
+if(count($movimientos) == 0){
+echo <<<EOT
+<tr>
+<td colspan="3">SIN MOVIMIENTOS</td>
+</tr>
+EOT;
+}
 foreach ($movimientos as $movimiento) {
 echo <<<EOT
 <tr>

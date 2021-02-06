@@ -10,10 +10,12 @@ function agregarOrigen(origen, monedaOrigen) {
     var elementoAnterior = $("#" + cuentaOrigen + "1");
     if (elementoAnterior != null) {
         elementoAnterior.removeClass("w3-gray");
+        elementoAnterior.removeClass("negrita");
     }
     cuentaOrigen = origen;
     moneda = monedaOrigen;
-    $("#" + cuentaOrigen + "1").addClass("w3-gray")
+    $("#" + cuentaOrigen + "1").addClass("w3-gray");
+    $("#" + cuentaOrigen + "1").addClass("negrita");
     mostrarMensaje();
 }
 

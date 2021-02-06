@@ -1,26 +1,25 @@
+<?php include './logica/seguridad.php';?>
+<?php include './datos/conexion.php';?>
+<?php include './datos/cuenta.php';?>
 <?php include './bases/header.html'; ?>
 
 <?php
 // Cuenta a detallar
 $cuenta = $_GET['cuenta'] ?? 0;
 
-$simbolo = ['+', '-'];
 $movimientos = array();
 
-// https://www.php.net/manual/en/function.getdate.php
-$fecha = getdate();
-
 // Carga de los movimientos
-for ($i = 0; $i < 20; $i++) {
+foreach (getMovimientos($cuenta) as $movimientoDB){
     $movimiento = [
-        'FechaHora' => $fecha["mday"] . "/" . $fecha["mon"] . "/" . $fecha["year"] . " " . $fecha["hours"] . ":" . $fecha["minutes"] . ":" . $fecha["seconds"],
-        'Tipo' => "Transferencia",
-        'Simbolo' => $simbolo[rand(0, 1)],
-        'Monto' => rand(0.00 * 100, 1000.00 * 100) / 100,
-        'Moneda' => "S/",
+        'FechaHora' => $movimientoDB["FEC_SISTEMA"],
+        'Tipo' => $movimientoDB["DES_TIPO_MOVIMIENTO_CUENTA"],
+        'Simbolo' => $movimientoDB["SIMBOLO"],
+        'Monto' => $movimientoDB["MONTO"],
+        'Moneda' => $movimientoDB["SIMBOLO_MONEDA"]
     ];
     array_push($movimientos, $movimiento);
-};
+}
 
 ?>
 
@@ -40,6 +39,13 @@ for ($i = 0; $i < 20; $i++) {
                 <tbody>
                 <?php
 // Se muestran las cuentas origen en la pantalla
+if(count($movimientos) == 0){
+echo <<<EOT
+<tr>
+<td colspan="3">SIN MOVIMIENTOS</td>
+</tr>
+EOT;
+}
 foreach ($movimientos as $movimiento) {
 echo <<<EOT
 <tr>

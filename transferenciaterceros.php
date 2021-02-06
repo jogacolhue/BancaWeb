@@ -1,21 +1,22 @@
+<?php include './logica/seguridad.php';?>
+<?php include './datos/conexion.php';?>
+<?php include './datos/cuenta.php';?>
 <?php include './bases/header.html'; ?>
 
 <?php
-// Creación de variables inciales
-$monedas = ['S/', '$'];
-$tipoCuentas = ['Ahorro Simple', 'Ahorro Sueldo']; 
+// Creación de variables inciales 
 $cuentas = array(); 
 
 // Carga de las cuentas del cliente
-for ($i = 0; $i < 3; $i++) {
+foreach (getCuentas($_SESSION["codigoCliente"]) as $cuentaDB){
     $cuenta = [
-        'Tipo' => strtoupper($tipoCuentas[rand(0, 1)]),
-        'Saldo' => rand(0.00 * 100, 1000.00 * 100) / 100,
-        'Codigo' => rand(100000000, 999999999),
-        'Moneda' => $monedas[rand(0, 1)]
+        'Tipo' => strtoupper($cuentaDB["NOM_TIPO_CUENTA"]), 
+        'Saldo' => $cuentaDB["SALDO"],
+        'Codigo' => $cuentaDB["NUM_CUENTA"],
+        'Moneda' => $cuentaDB["SIMBOLO"]
     ];
     array_push($cuentas, $cuenta);
-};
+}
 
 ?>
 

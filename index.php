@@ -1,7 +1,7 @@
 <?php 
     // Variables para la muestra del mensaje de validación rechazada en el inicio de sesión
     $errorLogin = $_GET['errorLogin'] ?? 0; 
-    $mensajeError = "Tarjeta y/o contraseña no válida. Tarjeta: 4772000012345678, Clave: 1234";
+    $mensajeError = "Tarjeta y/o contraseña no válida. Tarjeta: 4772000012345678, Clave: 1234 ; Tarjeta: 4772000011111111, Clave: 1111 ";
 ?>
 
 <!DOCTYPE html>
@@ -12,6 +12,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="css/w3.css">
+    <link rel="stylesheet" href="css/pagina.css">
 </head>
 
 

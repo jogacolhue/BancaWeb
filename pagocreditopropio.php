@@ -1,34 +1,35 @@
+<?php include './logica/seguridad.php';?>
+<?php include './datos/conexion.php';?>
+<?php include './datos/cuenta.php';?>
+<?php include './datos/credito.php';?>
 <?php include './bases/header.html'; ?>
 
 <?php
-// Creación de variables inciales
-$monedas = ['S/', '$'];
-$tipoCuentas = ['Ahorro Simple', 'Ahorro Sueldo']; 
-$tipoCreditos = ['Credito por Consumo', 'Credito Hipotecario'];
+// Creación de variables inciales 
 $cuentas = array(); 
 $creditos = array();
 
-// Carga de las cuentas del cliente
-for ($i = 0; $i < 3; $i++) {
+// Carga de las cuentas del cliente 
+foreach (getCuentas($_SESSION["codigoCliente"]) as $cuentaDB){
     $cuenta = [
-        'Tipo' => strtoupper($tipoCuentas[rand(0, 1)]),
-        'Saldo' => rand(0.00 * 100, 1000.00 * 100) / 100,
-        'Codigo' => rand(100000000, 999999999),
-        'Moneda' => $monedas[rand(0, 1)]
+        'Tipo' => strtoupper($cuentaDB["NOM_TIPO_CUENTA"]), 
+        'Saldo' => $cuentaDB["SALDO"],
+        'Codigo' => $cuentaDB["NUM_CUENTA"],
+        'Moneda' => $cuentaDB["SIMBOLO"]
     ];
     array_push($cuentas, $cuenta);
-};
+}
 
- // Carga de los créditos del cliente
- for ($i = 0; $i < 3; $i++) {
+// Carga de los créditos del cliente
+foreach (getCreditos($_SESSION["codigoCliente"]) as $creditoDB){
     $credito = [
-        'Tipo' => strtoupper($tipoCreditos[rand(0, 1)]),
-        'DeudaPendiente' => rand(0.00 * 100, 1000.00 * 100) / 100,
-        'Codigo' => rand(100000000, 999999999),
-        'Moneda' => 'S/'
+        'Tipo' => strtoupper($creditoDB["NOM_TIPO_CREDITO"]), 
+        'DeudaPendiente' => $creditoDB["DEUDA"],
+        'Codigo' => $creditoDB["NUM_CREDITO"],
+        'Moneda' => $creditoDB["SIMBOLO"]
     ];
     array_push($creditos, $credito);
-};
+}
 
 ?>
 
@@ -47,7 +48,7 @@ for ($i = 0; $i < 3; $i++) {
 // Se muestran las cuentas del cliente en la pantalla
 foreach ($cuentas as $cuenta) {
 echo <<<EOT
-<li id="$cuenta[Codigo]"><div class="w3-bar-item" onclick="agregarOrigen($cuenta[Codigo])">
+<li id="$cuenta[Codigo]1"><div class="w3-bar-item" onclick="agregarOrigen($cuenta[Codigo])">
 <span class="w3-large">$cuenta[Tipo]</span><br>
 <span>Código $cuenta[Codigo]</span><br>
 <span>Saldo $cuenta[Moneda] $cuenta[Saldo]</span>
@@ -70,7 +71,7 @@ EOT;
 // Se muestran los créditos del cliente en la pantalla                     
 foreach ($creditos as $credito) {
 echo <<<EOT
-<li id="$credito[Codigo]"><div class="w3-bar-item" onclick="agregarDestino($credito[Codigo], '$credito[Moneda]')">
+<li id="$credito[Codigo]2"><div class="w3-bar-item" onclick="agregarDestino($credito[Codigo], '$credito[Moneda]')">
 <span class="w3-large">$credito[Tipo]</span><br>
 <span>Código $credito[Codigo]</span><br>
 <span>Deuda pendiente $credito[Moneda] $credito[DeudaPendiente]</span>

@@ -1,4 +1,6 @@
 <?php 
+include '../datos/conexion.php';
+include '../datos/tarjeta.php';
 // Se obtiene los datos del envió del formulario
 if ( isset( $_POST['submit'] ) ){  
     $tarjeta = $_REQUEST['tarjeta'];
@@ -18,8 +20,13 @@ if ( isset( $_POST['submit'] ) ){
 // $tarjeta : Número de tarjeta del cliente
 // $clave : Clave de la tarjeta
 function ValidarCredenciales ($tarjeta, $clave)
-{
-    if($tarjeta == "4772000012345678" && $clave == 1234){
+{ 
+    $tarjetas = getTarjeta($tarjeta, md5($clave));     
+    if(count($tarjetas) == 1 ){
+        session_start();
+        $_SESSION['codigoCliente'] = $tarjetas[0]['COD_CLIENTE'];
+        $_SESSION["autenticado"] ="SI";
+        $_SESSION["ultimoAcceso"] = date("Y-m-d H:i:s"); 
         return true;
     }else{
         return false;
