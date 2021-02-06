@@ -1,4 +1,8 @@
 <?php 
+    // Función para buscar una tarjeta en base a su número y clave
+    // con fines de autorización
+    // $numeroTarjeta : Número de la tarjeta
+    // $clave : Clave encriptada
     function getTarjeta($numeroTarjeta, $clave){
         $link = conectarse();
         // Realizamos la consulta SQL

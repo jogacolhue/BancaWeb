@@ -1,4 +1,6 @@
 <?php 
+    // Función para obtener la lista de créditos
+    // $codCliente : Código del cliente propietario de los créditos
     function getCreditos($codCliente){
         $link = conectarse();
         // Realizamos la instrucción SQL
@@ -17,6 +19,8 @@
         return $items;
     } 
 
+    // Función para obtener los pagos de los créditos
+    // $codCredito : Número del crédito a consultar
     function getPagos($codCredito){
         $link = conectarse();
         // Realizamos la instrucción SQL
@@ -36,6 +40,8 @@
         return $items;
     }
 
+    // Función para obtener los datos de un crédito
+    // $codCredito : Número del crédito a consultar
     function getCredito($codCredito){
         $link = conectarse();
         // Realizamos la instrucción SQL
@@ -52,6 +58,9 @@
         return $items;
     }
 
+    // Función para actualizar la deuda de un crédito
+    // $codCredito : Número del crédito a actualizar
+    // $deuda : Nueva deuda
     function updateDeuda($codCredito, $deuda){
         $link = conectarse();
         // Realizamos la instrucción SQL
@@ -62,6 +71,9 @@
         return $result;
     }
 
+    // Función para registrar el pago realizado
+    // $codCredito : Número del crédito pagado
+    // $monto : Monto pagado
     function setPago($codCredito, $monto){
         $link = conectarse(); 
         $fecha = date("Y-m-d H:i:s");
@@ -74,6 +86,10 @@
         return $result;
     }
 
+    // Función para eliminar un crédito pagado completamente
+    // (En un ambiente de producción sólo se actualizaría el estado, pero 
+    // lo creo para tener un ejemplo de DELETE)
+    // $codCredito : Número del crédito pagado
     function deleteCredito($codCredito){
         $link = conectarse();
         // Realizamos la instrucción SQL

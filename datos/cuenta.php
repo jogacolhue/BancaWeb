@@ -1,4 +1,6 @@
 <?php     
+    // Función para obtener las cuentas de un cliente
+    // $codCliente : Código del cliente
     function getCuentas($codCliente){
         $link = conectarse();
         // Realizamos la instrucción SQL
@@ -17,6 +19,8 @@
         return $items;
     } 
 
+    // Función para obtener los movimientos de una cuenta
+    // $codCuenta : Número de cuenta a consultar
     function getMovimientos($codCuenta){
         $link = conectarse();
         // Realizamos la instrucción SQL
@@ -37,6 +41,8 @@
         return $items;
     }
 
+    // Función para obtener los datos de una cuenta
+    // $codCuenta : Número de cuenta a consultar
     function getCuenta($codCuenta){
         $link = conectarse();
         // Realizamos la instrucción SQL
@@ -53,6 +59,9 @@
         return $items;
     }
 
+    // Función para actualizar el saldo de una cuenta
+    // $codCuenta : Número de cuenta modificar
+    // $saldo : Nuevo saldo
     function updateSaldo($codCuenta, $saldo){
         $link = conectarse();
         // Realizamos la instrucción SQL
@@ -63,6 +72,10 @@
         return $result;
     }
 
+    // Función para establecer un movimiento de una cuenta
+    // $codCuenta : Número de cuenta que realiza el movimiento
+    // $monto : Monto del movimiento
+    // $tipoMovimiento : Código del tipo de movimiento
     function setMovimiento($codCuenta, $monto, $tipoMovimiento){
         $link = conectarse(); 
         $fecha = date("Y-m-d H:i:s");

@@ -23,8 +23,10 @@
         echo json_encode($resultado);
     } 
 
-    // Función para validar las transferencias realizadas 
+    // Función para validar las transferencias a realizar
+    // $cuentaOrigen : Cuenta origen de la operación
     // $cuentaDestino : Cuenta destino de la operación
+    // $monto : Monto a transferir desde la cuenta origen
     function validarTransferencia($cuentaOrigen, $cuentaDestino, $monto){
         if(strlen($cuentaDestino) != 9 ){
             $resultado['error'] = "La longitud de la cuenta destino debe ser de 9 caracteres.";
@@ -54,6 +56,10 @@
         }
     }
 
+    // Función para hacer el procesamiento de la transferencia
+    // $cuentaOrigen : Cuenta a debitar 
+    // $cuentaDestino : Cuenta a depositar
+    // $monto : Monto de transferencia del origen
     function realizarTransferencia($cuentaOrigen, $cuentaDestino, $monto){
         $cuentaOrigenDB = getCuenta($cuentaOrigen)[0];
         $cuentaDestinoDB = getCuenta($cuentaDestino)[0];

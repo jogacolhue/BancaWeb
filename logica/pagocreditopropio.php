@@ -27,6 +27,7 @@
     // Función para validar las transferencias realizadas
     // $cuenta : Cuenta de la operación
     // $credito : Crédito de la operación
+    // $monto : Monto a pagar del crédito
     function validarTransferencia($cuenta, $credito, $monto){
         $cuentaDB = getCuenta($cuenta)[0];
         $creditoDB = getCredito($credito)[0];
@@ -52,6 +53,10 @@
         return true;
     } 
 
+    // Función para hacer el procesamiento del pago de crédito
+    // $cuenta : Cuenta a debitar 
+    // $credito : Crédito a pagar
+    // $monto : Monto de pago del crédito
     function realizarPago($cuenta, $credito, $monto){
         $cuentaDB = getCuenta($cuenta)[0];
         $creditoDB = getCredito($credito)[0];
