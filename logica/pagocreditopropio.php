@@ -8,8 +8,12 @@
     $monto=$_POST['monto'];
     
     $validacion = validarTransferencia($cuenta, $credito, $monto);
-    
-    realizarPago($cuenta, $credito, $monto);
+    $procesamiento = false;
+
+    // Se procede a realizar la operación
+    if($validacion){    
+        $procesamiento = realizarPago($cuenta, $credito, $monto);
+    }
 
     $resultado = array(
         'cuenta' => $cuenta,
@@ -20,7 +24,7 @@
     );
 
     // Resultado aprobado del proceso de transferencia
-    if($validacion){
+    if($procesamiento){
         echo json_encode($resultado);
     } 
 
@@ -79,6 +83,7 @@
             deleteCredito($creditoDB["NUM_CREDITO"]);
         }
         
+        return true;
     }
 
 ?>

@@ -7,8 +7,12 @@
     $monto=$_POST['monto'];
     
     $validacion = validarTransferencia($cuentaOrigen, $cuentaDestino, $monto);
-    
-    realizarTransferencia($cuentaOrigen, $cuentaDestino, $monto);
+    $procesamiento = false;
+
+    // Se procede a realizar la operación
+    if($validacion){
+        $procesamiento = realizarTransferencia($cuentaOrigen, $cuentaDestino, $monto);
+    }
 
     $resultado = array(
         'cuentaOrigen' => $cuentaOrigen,
@@ -19,7 +23,7 @@
     );
 
     // Resultado aprobado del proceso de transferencia
-    if($validacion){
+    if($procesamiento){
         echo json_encode($resultado);
     } 
 
@@ -67,6 +71,8 @@
 
         setMovimiento($cuentaOrigenDB["NUM_CUENTA"], $monto, 2);
         setMovimiento($cuentaDestinoDB["NUM_CUENTA"], $montoDestino, 1);
+
+        return true;
     }
 
 ?>
